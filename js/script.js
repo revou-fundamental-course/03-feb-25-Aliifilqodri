@@ -9,13 +9,13 @@ function convertTemperature() {
     const temperature = parseFloat(temperatureInput.value);
 
     if (isNaN(temperature)) {
-        alert("Please enter a valid temperature!");
+        alert("Masukkan suhu yang valid!");
         return;
     }
 
     let convertedValue;
     let convertedUnit;
-    let exp; 
+    let formula; 
 
     const fromUnit = fromUnitSelect.value;
     const toUnit = toUnitSelect.value;
@@ -23,40 +23,40 @@ function convertTemperature() {
     if (fromUnit === toUnit) {
         convertedValue = temperature;
         convertedUnit = fromUnit;
-        exp = `No conversion needed. ${temperature} ${fromUnit} is equal to ${temperature} ${fromUnit}.`;
+        formula = `Tidak ada perubahan: ${temperature} ${fromUnit} = ${temperature} ${toUnit}.`;
     } else if (fromUnit === "celsius") {
         if (toUnit === "fahrenheit") {
             convertedValue = (temperature * 9/5) + 32;
             convertedUnit = "Fahrenheit";
-            exp = `${temperature} Celsius is equal to ${convertedValue.toFixed(2)} Fahrenheit. Formula: (C * 9/5) + 32`;
+            formula = `(${temperature} × 9/5) + 32 = ${convertedValue.toFixed(2)}°F`;
         } else if (toUnit === "kelvin") {
             convertedValue = temperature + 273.15;
             convertedUnit = "Kelvin";
-            exp = `${temperature} Celsius is equal to ${convertedValue.toFixed(2)} Kelvin. Formula: C + 273.15`;
+            formula = `${temperature} + 273.15 = ${convertedValue.toFixed(2)}K`;
         }
     } else if (fromUnit === "fahrenheit") {
         if (toUnit === "celsius") {
             convertedValue = (temperature - 32) * 5/9;
             convertedUnit = "Celsius";
-            exp = `${temperature} Fahrenheit is equal to ${convertedValue.toFixed(2)} Celsius. Formula: (F - 32) * 5/9`;
+            formula = `(${temperature} - 32) × 5/9 = ${convertedValue.toFixed(2)}°C`;
         } else if (toUnit === "kelvin") {
             convertedValue = (temperature - 32) * 5/9 + 273.15;
             convertedUnit = "Kelvin";
-            exp = `${temperature} Fahrenheit is equal to ${convertedValue.toFixed(2)} Kelvin. Formula: (F - 32) * 5/9 + 273.15`;
+            formula = `(${temperature} - 32) × 5/9 + 273.15 = ${convertedValue.toFixed(2)}K`;
         }
     } else if (fromUnit === "kelvin") {
         if (toUnit === "celsius") {
             convertedValue = temperature - 273.15;
             convertedUnit = "Celsius";
-            exp = `${temperature} Kelvin is equal to ${convertedValue.toFixed(2)} Celsius. Formula: K - 273.15`;
+            formula = `${temperature} - 273.15 = ${convertedValue.toFixed(2)}°C`;
         } else if (toUnit === "fahrenheit") {
             convertedValue = (temperature - 273.15) * 9/5 + 32;
             convertedUnit = "Fahrenheit";
-            exp = `${temperature} Kelvin is equal to ${convertedValue.toFixed(2)} Fahrenheit. Formula: (K - 273.15) * 9/5 + 32`;
-        
+            formula = `(${temperature} - 273.15) × 9/5 + 32 = ${convertedValue.toFixed(2)}°F`;
+        }
     }
 
-    convertedTemperature.textContent = `${convertedValue.toFixed(2)} ${convertedUnit}`;
-    explanation.textContent = exp;
+    convertedTemperature.innerHTML = `<strong>${convertedValue.toFixed(2)} ${convertedUnit}</strong>`;
+    explanation.innerHTML = `🔍 Rumus: <strong>${formula}</strong>`;
     resultDiv.classList.remove("hidden");
 }
